@@ -3,7 +3,7 @@ const routes = express.Router();
 const Usuario = require('../models/usuario')
 
 function createRoute(){
-    routes.post('/usuarios', async (req,res) => {
+    routes.post('/usuarios/cadastro', async (req,res) => {
         console.log('create: ', req.body)
         await Usuario.create(req.body)
        // console.log('usuario criado com sucesso')
@@ -12,32 +12,56 @@ function createRoute(){
 }
 
 function findAllRoute(){
-    routes.get('/usuarios', (req,res) => {
-        res.json([]);
+
+    routes.get('/usuarios', async (req,res) => {
+
+        const usuarios = await Usuario.findAll();
+
+        // console.log(usuarios.every(user => user instanceof Usuario)); // true
+        // console.log("Todos usuarios: ", JSON.stringify(usuarios, null, 2));
+
+        res.json(usuarios);
     });
 }
 
 function findByIdRoute(){
-    routes.get('/usuarios/:meuParametro', (req,res) => {
-        console.log(req.params)
-        res.json([]);
+    routes.get('/usuarios/:id', async (req,res) => {
+        console.log(req.params.id)
+
+        const usuarioAchado = await Usuario.findOne({
+            where:{
+                id: req.params.id
+            }
+        })
+        res.json(usuarioAchado);
     });
 }
 
 function updateRoute(){
-    routes.put('/usuarios', (req,res) => {
-        console.log(req.body)
+    routes.put('/usuarios', async (req,res) => {
+        
+        console.log(req.body.id)
+
+         await Usuario.update(req.body, {
+            where:{
+                id:req.body.id
+            }
+        })
         res.json([]);
     });
 }
 
 function removeRoute(){
-    routes.delete('/usuarios/:meuParametro', (req,res) => {
-        console;log(req.params)
+    routes.delete('/usuarios/:id', async (req,res) => {
+
+        await Usuario.destroy({
+            where:{
+                id:req.params.id
+            }
+        })
         res.json([]);
     });
 }
-
 
 function registerRoutes(){
     findAllRoute();
@@ -47,6 +71,5 @@ function registerRoutes(){
     findByIdRoute();
     return routes
 }
-
 
 module.exports = registerRoutes

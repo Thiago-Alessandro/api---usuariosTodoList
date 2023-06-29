@@ -10,7 +10,7 @@ Usuario.init({
         allowNull: false,
         primaryKey: true
     },
-    nome:{
+    name:{
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -18,11 +18,19 @@ Usuario.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    email:{
-        type: DataTypes.STRING,
+    groups:{
+        type: DataTypes.STRING,//apartir daq era p ser um array de string o type
         allowNull: false,
-        unique: true
+    },
+    cardPermissions:{
+        type:DataTypes.STRING,//pelo q vi tem q criar uma tabela auxiliar relacionando usuario com suas permissoes tem q ver
+        allowNull: false
+    },
+    propertiesPermissions:{
+        type:DataTypes.STRING,
+        allowNull: false
     }
+    
 },
 {
     sequelize: connection,
