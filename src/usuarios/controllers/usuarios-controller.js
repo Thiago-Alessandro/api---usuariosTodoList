@@ -3,7 +3,7 @@ const routes = express.Router();
 const Usuario = require('../models/usuario')
 
 function createRoute(){
-    routes.post('/usuarios/cadastro', async (req,res) => {
+    routes.post('/usuarios', async (req,res) => {
         console.log('create: ', req.body)
         await Usuario.create(req.body)
        // console.log('usuario criado com sucesso')

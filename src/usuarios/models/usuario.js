@@ -34,7 +34,7 @@ Usuario.init({
 },
 {
     sequelize: connection,
-    modelName: 'users'
+    modelName: 'usuarios'
 })
 
 Usuario.sync()
