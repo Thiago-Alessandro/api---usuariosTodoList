@@ -1,11 +1,12 @@
 const { DataTypes, Model } = require('sequelize')
 
-const connection = require('../../database/connection')
+const connection = require('../../database/connection');
+const dataTypes = require('sequelize/lib/data-types');
 
 class Usuario extends Model {}
 
 Usuario.init({
-    id:{
+    id_user:{
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true
@@ -14,20 +15,12 @@ Usuario.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    email:{
+        type:dataTypes.STRING,
+        allowNull:false
+    },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    groups:{
-        type: DataTypes.STRING,//apartir daq era p ser um array de string o type
-        allowNull: false,
-    },
-    cardPermissions:{
-        type:DataTypes.STRING,//pelo q vi tem q criar uma tabela auxiliar relacionando usuario com suas permissoes tem q ver
-        allowNull: false
-    },
-    propertiesPermissions:{
-        type:DataTypes.STRING,
         allowNull: false
     }
     

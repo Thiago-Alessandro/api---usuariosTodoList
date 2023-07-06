@@ -1,11 +1,11 @@
 const express = require('express');
 const routes = express.Router();
-const Usuario = require('../models/usuario')
+const PropertyPermission = require('../models/propertyPermission')
 
 function createRoute(){
-    routes.post('/usuarios', async (req,res) => {
+    routes.post('/propertyPermission', async (req,res) => {
         console.log('create: ', req.body)
-        await Usuario.create(req.body)
+        await PropertyPermission.create(req.body)
        // console.log('usuario criado com sucesso')
         res.json([]);
     });
@@ -13,36 +13,36 @@ function createRoute(){
 
 function findAllRoute(){
 
-    routes.get('/usuarios', async (req,res) => {
+    routes.get('/propertyPermission', async (req,res) => {
 
-        const usuarios = await Usuario.findAll();
+        const propertyPermissions = await PropertyPermission.findAll();
 
         // console.log(usuarios.every(user => user instanceof Usuario)); // true
         // console.log("Todos usuarios: ", JSON.stringify(usuarios, null, 2));
 
-        res.json(usuarios);
+        res.json(propertyPermissions);
     });
 }
 
 function findByIdRoute(){
-    routes.get('/usuarios/:id', async (req,res) => {
+    routes.get('/propertyPermission/:id', async (req,res) => {
         console.log(req.params.id)
 
-        const usuarioAchado = await Usuario.findOne({
+        const foundPropertyPermission = await PropertyPermission.findOne({
             where:{
                 id_user: req.params.id
             }
         })
-        res.json(usuarioAchado);
+        res.json(foundPropertyPermission);
     });
 }
 
 function updateRoute(){
-    routes.put('/usuarios', async (req,res) => {
+    routes.put('/propertyPermission', async (req,res) => {
         
         console.log(req.body.id)
 
-         await Usuario.update(req.body, {
+         await PropertyPermission.update(req.body, {
             where:{
                 id_user:req.body.id
             }
@@ -52,9 +52,9 @@ function updateRoute(){
 }
 
 function removeRoute(){
-    routes.delete('/usuarios/:id', async (req,res) => {
+    routes.delete('/propertyPermission/:id', async (req,res) => {
 
-        await Usuario.destroy({
+        await PropertyPermission.destroy({
             where:{
                 id_user:req.params.id
             }
@@ -63,7 +63,7 @@ function removeRoute(){
     });
 }
 
-function registerRoutes(){
+function registerRoutesPropertyPermission(){
     findAllRoute();
     createRoute();
     removeRoute();
@@ -72,4 +72,4 @@ function registerRoutes(){
     return routes
 }
 
-module.exports = registerRoutes
+module.exports = registerRoutesPropertyPermission

@@ -1,11 +1,11 @@
 const express = require('express');
 const routes = express.Router();
-const Usuario = require('../models/usuario')
+const Group = require('../models/group')
 
 function createRoute(){
-    routes.post('/usuarios', async (req,res) => {
+    routes.post('/group', async (req,res) => {
         console.log('create: ', req.body)
-        await Usuario.create(req.body)
+        await Group.create(req.body)
        // console.log('usuario criado com sucesso')
         res.json([]);
     });
@@ -13,36 +13,36 @@ function createRoute(){
 
 function findAllRoute(){
 
-    routes.get('/usuarios', async (req,res) => {
+    routes.get('/group', async (req,res) => {
 
-        const usuarios = await Usuario.findAll();
+        const groups = await Group.findAll();
 
         // console.log(usuarios.every(user => user instanceof Usuario)); // true
         // console.log("Todos usuarios: ", JSON.stringify(usuarios, null, 2));
 
-        res.json(usuarios);
+        res.json(groups);
     });
 }
 
 function findByIdRoute(){
-    routes.get('/usuarios/:id', async (req,res) => {
+    routes.get('/group/:id', async (req,res) => {
         console.log(req.params.id)
 
-        const usuarioAchado = await Usuario.findOne({
+        const foundGroup = await Group.findOne({
             where:{
                 id_user: req.params.id
             }
         })
-        res.json(usuarioAchado);
+        res.json(foundGroup);
     });
 }
 
 function updateRoute(){
-    routes.put('/usuarios', async (req,res) => {
+    routes.put('/group', async (req,res) => {
         
         console.log(req.body.id)
 
-         await Usuario.update(req.body, {
+         await Group.update(req.body, {
             where:{
                 id_user:req.body.id
             }
@@ -52,9 +52,9 @@ function updateRoute(){
 }
 
 function removeRoute(){
-    routes.delete('/usuarios/:id', async (req,res) => {
+    routes.delete('/group/:id', async (req,res) => {
 
-        await Usuario.destroy({
+        await Group.destroy({
             where:{
                 id_user:req.params.id
             }
@@ -63,7 +63,7 @@ function removeRoute(){
     });
 }
 
-function registerRoutes(){
+function registerRoutesGroup(){
     findAllRoute();
     createRoute();
     removeRoute();
@@ -72,4 +72,4 @@ function registerRoutes(){
     return routes
 }
 
-module.exports = registerRoutes
+module.exports = registerRoutesGroup
